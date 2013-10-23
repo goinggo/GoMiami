@@ -15,6 +15,9 @@ import (
 // a shutdown should take place early
 var Shutdown int32 = 0
 
+// Kill the program after the timeout has been reached
+var TimeoutSeconds int = 10
+
 // main is the entry point for the program
 func main() {
 	sigChan := make(chan os.Signal, 1)
@@ -30,6 +33,10 @@ func main() {
 				atomic.StoreInt32(&Shutdown, 1)
 			}
 			continue
+
+		case <-time.After(time.Duration(TimeoutSeconds) * time.Second):
+			fmt.Printf("******> TIMEOUT\n")
+			os.Exit(1)
 
 		case <-complete:
 			return
