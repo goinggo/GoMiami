@@ -21,17 +21,15 @@ var TimeoutSeconds int = 10
 // main is the entry point for the program
 func main() {
 	sigChan := make(chan os.Signal, 1)
-	signal.Notify(sigChan)
+	signal.Notify(sigChan, os.Interrupt)
 
 	complete := make(chan struct{})
 	go LaunchProcessor(complete)
 
 	for {
 		select {
-		case whatSig := <-sigChan:
-			if whatSig == os.Interrupt {
-				atomic.StoreInt32(&Shutdown, 1)
-			}
+		case <-sigChan:
+			atomic.StoreInt32(&Shutdown, 1)
 			continue
 
 		case <-time.After(time.Duration(TimeoutSeconds) * time.Second):
