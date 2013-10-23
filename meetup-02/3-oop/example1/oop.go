@@ -70,8 +70,8 @@ func (animal *Animal) PerformNoise(strength int, sound string) {
 
 // MakeNoise performs the barking for a Dog
 // Implements the AnimalSounder interface
-func (dog *Dog) MakeNoise() {
-	dog.PerformNoise(dog.BarkStrength, "BARK")
+func (this *Dog) MakeNoise() {
+	this.PerformNoise(this.BarkStrength, "BARK")
 }
 
 // MakeNoise perform the barking for a Cat

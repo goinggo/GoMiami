@@ -10,7 +10,11 @@ import (
 
 // main is the entry point for the program
 func main() {
-	Test()
+	err := Test()
+
+	if err != nil {
+		fmt.Printf("%s\n", err)
+	}
 }
 
 // MimicError returns an error to testing the defer

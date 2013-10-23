@@ -38,7 +38,6 @@ func catchPanic(err *error, functionName string) {
 		fmt.Printf("%s : Stack Trace : %s", functionName, string(buf))
 
 		if err != nil {
-
 			*err = errors.New(fmt.Sprintf("%v", r))
 		}
 	}

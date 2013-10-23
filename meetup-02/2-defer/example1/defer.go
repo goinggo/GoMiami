@@ -3,7 +3,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -14,7 +13,7 @@ func main() {
 
 // MimicError returns an error to testing the defer
 func MimicError(key string) error {
-	return errors.New(fmt.Sprintf("Mimic Error : %s", key))
+	return fmt.Errorf("Mimic Error : %s", key)
 }
 
 // Test helps run the program logic
