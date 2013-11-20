@@ -69,7 +69,7 @@ func Google(query string) (results []Result) {
 			results = append(results, result)
 		case <-timeout:
 			fmt.Println("timed out")
-			return
+			return results
 		}
 	}
 

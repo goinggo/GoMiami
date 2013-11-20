@@ -19,6 +19,7 @@ func main() {
 	}
 
 	quit <- true
+	fmt.Println("EXIT")
 }
 
 func boring(msg string, quit chan bool) <-chan string { // Returns receive-only (<-) channel of strings.
@@ -30,6 +31,7 @@ func boring(msg string, quit chan bool) <-chan string { // Returns receive-only 
 			case c <- fmt.Sprintf("%s %d", msg, i):
 				// Do Nothing
 			case <-quit:
+				fmt.Println("Quiting")
 				return
 			}
 		}
