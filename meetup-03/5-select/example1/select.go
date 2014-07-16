@@ -1,27 +1,27 @@
 /*
-	Select is control structure that is unqiue to concurrency.
+Select is control structure that is unqiue to concurrency.
 
-	The reason channels and Goroutines are built into the language.
+The reason channels and Goroutines are built into the language.
 
-	Like a switch but each case is a communication:
-	-- All channels are evaluated
-	-- Selection blocks until one communication can proceed, which then does.
-	-- If multiple can proceed, select choose pseudo-randomly.
-	-- Default clause, if present, executes immediately if no channel is ready.
+Like a switch but each case is a communication:
+-- All channels are evaluated
+-- Selection blocks until one communication can proceed, which then does.
+-- If multiple can proceed, select choose pseudo-randomly.
+-- Default clause, if present, executes immediately if no channel is ready.
 
-	Multiplexing: Let whosoever is ready to talk, talk.
+Multiplexing: Let whosoever is ready to talk, talk.
 
-	The fanIn function fronts the other channels. Goroutines that are ready to talk
-	can independently talk without Blocking the other Goroutines. The FanIn channel
-	receives all messages for processing.
+The fanIn function fronts the other channels. Goroutines that are ready to talk
+can independently talk without Blocking the other Goroutines. The FanIn channel
+receives all messages for processing.
 
-	Decouples the execution between the different Goroutines.
+Decouples the execution between the different Goroutines.
 
-    Joe ---
-           \
-            ----- FanIn --- Independent Messages Displayed
-           /
-    Ann ---
+Joe ---
+       \
+        ----- FanIn --- Independent Messages Displayed
+       /
+Ann ---
 */
 package main
 
@@ -35,7 +35,7 @@ func main() {
 	c := fanIn(boring("Joe"), boring("Ann"))
 
 	for i := 0; i < 10; i++ {
-		fmt.Println(<-c) // Display any message received on the FanIn channel
+		fmt.Println(<-c) // Display any message received on the FanIn channel.
 	}
 
 	fmt.Println("Your're boring: I'm leaving.")
@@ -62,7 +62,7 @@ func fanIn(input1, input2 <-chan string) <-chan string {
 func boring(msg string) <-chan string { // Returns receive-only (<-) channel of strings.
 	c := make(chan string)
 
-	go func() { // Launch the goroutine from inside the function. Function Literal
+	go func() { // Launch the goroutine from inside the function. Function Literal.
 		for i := 0; ; i++ {
 			c <- fmt.Sprintf("%s %d", msg, i)
 			time.Sleep(time.Duration(rand.Intn(1e3)) * time.Millisecond)

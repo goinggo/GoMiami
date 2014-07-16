@@ -1,10 +1,10 @@
 /*
-	We execute a separate Goroutine to run the boring function.
+We execute a separate Goroutine to run the boring function.
 
-	The program terminates immediately because when main terminates,
-	the program terminates.
+The program terminates immediately because when main terminates,
+the program terminates.
 
-	We give the Goroutine two seconds to perform some work.
+We give the Goroutine two seconds to perform some work.
 */
 package main
 
@@ -15,14 +15,14 @@ import (
 )
 
 func main() {
-	// Use a goroutine
+	// Use a goroutine.
 	go boring("boring!")
 
 	fmt.Println("I'm listening.")
 	time.Sleep(2 * time.Second)
 	fmt.Println("Your're boring: I'm leaving.")
 
-	// Program will terminate immeditately
+	// Program will terminate immeditately.
 }
 
 func boring(msg string) {

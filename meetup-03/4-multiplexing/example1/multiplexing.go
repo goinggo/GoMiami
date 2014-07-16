@@ -1,17 +1,17 @@
 /*
-	Multiplexing: Let whosoever is ready to talk, talk.
+Multiplexing: Let whosoever is ready to talk, talk.
 
-	The fanIn function fronts the other channels. Goroutines that are ready to talk
-	can independently talk without Blocking the other Goroutines. The FanIn channel
-	receives all messages for processing.
+The fanIn function fronts the other channels. Goroutines that are ready to talk
+can independently talk without Blocking the other Goroutines. The FanIn channel
+receives all messages for processing.
 
-	Decouples the execution between the different Goroutines.
+Decouples the execution between the different Goroutines.
 
-    Joe ---
-           \
-            ----- FanIn --- Independent Messages Displayed
-           /
-    Ann ---
+Joe ---
+       \
+        ----- FanIn --- Independent Messages Displayed
+       /
+Ann ---
 */
 package main
 
@@ -25,7 +25,7 @@ func main() {
 	c := fanIn(boring("Joe"), boring("Ann"))
 
 	for i := 0; i < 10; i++ {
-		fmt.Println(<-c) // Display any message received on the FanIn channel
+		fmt.Println(<-c) // Display any message received on the FanIn channel.
 	}
 
 	fmt.Println("Your're boring: I'm leaving.")
@@ -34,15 +34,15 @@ func main() {
 func fanIn(input1, input2 <-chan string) <-chan string {
 	c := make(chan string) // The FanIn channel
 
-	go func() { // This Goroutine will receive messages from Joe
+	go func() { // This Goroutine will receive messages from Joe.
 		for {
-			c <- <-input1 // Write the message to the FanIn channel, Blocking Call
+			c <- <-input1 // Write the message to the FanIn channel, Blocking Call.
 		}
 	}()
 
 	go func() { // This Goroutine will receive messages from Ann
 		for {
-			c <- <-input2 // Write the message to the FanIn channel, Blocking Call
+			c <- <-input2 // Write the message to the FanIn channel, Blocking Call.
 		}
 	}()
 
@@ -52,7 +52,7 @@ func fanIn(input1, input2 <-chan string) <-chan string {
 func boring(msg string) <-chan string { // Returns receive-only (<-) channel of strings.
 	c := make(chan string)
 
-	go func() { // Launch the goroutine from inside the function. Function Literal
+	go func() { // Launch the goroutine from inside the function. Function Literal.
 		for i := 0; ; i++ {
 			c <- fmt.Sprintf("%s %d", msg, i)
 			time.Sleep(time.Duration(rand.Intn(1e3)) * time.Millisecond)

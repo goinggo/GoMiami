@@ -1,13 +1,13 @@
 /*
-	Example: Google Search
+Example: Google Search
 
-	Given a query, return a page of search results (and some ads).
-	Send the query to web search, image search, YouTube, Maps, News, etc. then mix the results.
+Given a query, return a page of search results (and some ads).
+Send the query to web search, image search, YouTube, Maps, News, etc. then mix the results.
 
-	Run the Web, Image and Video searches concurrently, and wait for all results.
-	No locks. No condition variables. No callbacks
+Run the Web, Image and Video searches concurrently, and wait for all results.
+No locks. No condition variables. No callbacks
 
-	Run each search in their own Goroutine and wait for all searches to complete before display results
+Run each search in their own Goroutine and wait for all searches to complete before display results
 */
 package main
 
@@ -18,52 +18,51 @@ import (
 )
 
 var (
-	Web   = fakeSearch("web")
-	Image = fakeSearch("image")
-	Video = fakeSearch("video")
+	web   = fakeSearch("web")
+	image = fakeSearch("image")
+	video = fakeSearch("video")
 )
 
 type (
-	Result string
-	Search func(query string) Result
+	result string
+	search func(query string) result
 )
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	start := time.Now()
-	results := Google("golang")
+	results := google("golang")
 	elasped := time.Since(start)
 
 	fmt.Println(results)
 	fmt.Println(elasped)
 }
 
-func fakeSearch(kind string) Search {
-	return func(query string) Result {
+func fakeSearch(kind string) search {
+	return func(query string) result {
 		time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
-		return Result(fmt.Sprintf("%s result for %q\n", kind, query))
+		return result(fmt.Sprintf("%s result for %q\n", kind, query))
 	}
 }
-
-func Google(query string) (results []Result) {
-	c := make(chan Result)
+func google(query string) (results []result) {
+	c := make(chan result)
 
 	go func() {
-		c <- Web(query)
+		c <- web(query)
 	}()
 
 	go func() {
-		c <- Image(query)
+		c <- image(query)
 	}()
 
 	go func() {
-		c <- Video(query)
+		c <- video(query)
 	}()
 
 	for i := 0; i < 3; i++ {
-		result := <-c
-		results = append(results, result)
+		r := <-c
+		results = append(results, r)
 	}
 
 	return results

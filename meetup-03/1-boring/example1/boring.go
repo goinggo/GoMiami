@@ -1,8 +1,4 @@
-/*
-	Program loops five times printing a message.
-
-	Everything runs on the main goroutine.
-*/
+// Program loops five times printing a message.
 package main
 
 import (

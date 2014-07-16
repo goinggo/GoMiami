@@ -1,8 +1,8 @@
 /*
-	We execute a separate Goroutine to run the boring function.
+We execute a separate Goroutine to run the boring function.
 
-	The program terminates immediately because when main terminates,
-	the program terminates.
+The program terminates immediately because when main terminates,
+the program terminates.
 */
 package main
 
@@ -13,10 +13,10 @@ import (
 )
 
 func main() {
-	// Use a goroutine
+	// Use a goroutine.
 	go boring("boring!")
 
-	// Program will terminate immeditately
+	// Program will terminate immeditately.
 }
 
 func boring(msg string) {

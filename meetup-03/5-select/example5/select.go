@@ -1,8 +1,8 @@
 /*
-	Receive on Quit Channel
+Receive on Quit Channel
 
-	How do we know it's finished? Wait for it to tell us it's done: receive on the quit
-	channel
+How do we know it's finished? Wait for it to tell us it's done: receive on the quit
+channel
 */
 package main
 
@@ -26,11 +26,11 @@ func main() {
 func boring(msg string, quit chan string) <-chan string { // Returns receive-only (<-) channel of strings.
 	c := make(chan string)
 
-	go func() { // Launch the goroutine from inside the function. Function Literal
+	go func() { // Launch the goroutine from inside the function. Function Literal.
 		for i := 0; ; i++ {
 			select {
 			case c <- fmt.Sprintf("%s %d", msg, i):
-				// Do Nothing
+				// Do Nothing.
 			case <-quit:
 				cleanup()
 				quit <- "See you!"

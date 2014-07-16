@@ -1,7 +1,4 @@
-/*
-	Generator: Function that returns a channel
-
-*/
+// Generator: Function that returns a channel
 package main
 
 import (
@@ -11,7 +8,7 @@ import (
 )
 
 func main() {
-	c := boring("boring!") // Function returning a channel
+	c := boring("boring!") // Function returning a channel.
 
 	for i := 0; i < 5; i++ {
 		fmt.Printf("You say: %q\n", <-c)
@@ -23,7 +20,7 @@ func main() {
 func boring(msg string) <-chan string { // Returns receive-only (<-) channel of strings.
 	c := make(chan string)
 
-	go func() { // Launch the goroutine from inside the function. Function Literal
+	go func() { // Launch the goroutine from inside the function. Function Literal.
 		for i := 0; ; i++ {
 			c <- fmt.Sprintf("%s %d", msg, i)
 			time.Sleep(time.Duration(rand.Intn(1e3)) * time.Millisecond)

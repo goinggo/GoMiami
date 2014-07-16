@@ -1,7 +1,7 @@
 /*
-	Quit Channel
+Quit Channel
 
-	You can turn this around and tell Joe to stop when we're tired of listening to him.
+You can turn this around and tell Joe to stop when we're tired of listening to him.
 */
 package main
 
@@ -25,7 +25,7 @@ func main() {
 func boring(msg string, quit chan bool) <-chan string { // Returns receive-only (<-) channel of strings.
 	c := make(chan string)
 
-	go func() { // Launch the goroutine from inside the function. Function Literal
+	go func() { // Launch the goroutine from inside the function. Function Literal.
 		for i := 0; ; i++ {
 			select {
 			case c <- fmt.Sprintf("%s %d", msg, i):
