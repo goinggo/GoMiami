@@ -1,6 +1,5 @@
-// This program demostrates passing by value. In this case we
-// are passing a pointer
-
+// Program demostrates passing by value. In this case we
+// are passing a pointer.
 package main
 
 import (

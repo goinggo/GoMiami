@@ -1,17 +1,15 @@
-// This program demostrates how to return multiple values from
+// Program demostrates how to return multiple values from
 // a function. It also shows how to use named return arguments
 // and naked returns
-
 package main
 
 import (
 	"fmt"
 )
 
-// main is the entry point for the program
+// main is the entry point for the program.
 func main() {
-	id, err := ReturnId()
-
+	id, err := ReturnID()
 	if err != nil {
 		fmt.Printf("ERROR: %s", err)
 		return
@@ -19,29 +17,39 @@ func main() {
 
 	fmt.Printf("Id: %d\n", id)
 
-	id2, _ := ReturnId_Named()
+	id2, err := ReturnIDNamed()
+	if err != nil {
+		fmt.Printf("ERROR: %s", err)
+		return
+	}
+
 	fmt.Printf("Id: %d\n", id2)
 
-	id3, _ := ReturnId_Naked()
+	id3, err := ReturnIDNaked()
+	if err != nil {
+		fmt.Printf("ERROR: %s", err)
+		return
+	}
+
 	fmt.Printf("Id: %d\n", id3)
 }
 
-// ReturnId provides an example of returning two values
-func ReturnId() (int, error) {
+// ReturnID provides an example of returning two values.
+func ReturnID() (int, error) {
 	id := 10
 	return id, nil
 }
 
-// ReturnId_Named provides an example of returning two values
-// using named return arguments
-func ReturnId_Named() (id int, err error) {
+// ReturnIDNamed provides an example of returning two values
+// using named return arguments.
+func ReturnIDNamed() (id int, err error) {
 	id = 20
 	return id, err
 }
 
-// ReturnId_Naked provides an example of returning two values
-// using a naked return
-func ReturnId_Naked() (id int, err error) {
+// ReturnIDNaked provides an example of returning two values
+// using a naked return.
+func ReturnIDNaked() (id int, err error) {
 	id = 30
 	return
 }

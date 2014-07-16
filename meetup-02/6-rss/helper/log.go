@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// Package helper : log.go provides log abstraction support.
 package helper
 
 import (
@@ -11,7 +12,7 @@ import (
 
 //** PUBLIC METHODS
 
-// _WriteStdout is used to write a system message directly to stdout
+// WriteStdout is used to write a system message directly to stdout
 //  goRoutine: The Go routine making the call
 //  namespace: The namespace the call is being made from
 //  functionName: The function makeing the call
@@ -20,7 +21,7 @@ func WriteStdout(goRoutine string, namespace string, functionName string, messag
 	fmt.Printf("%s : %s : %s : %s : %s\n", time.Now().Format("2006-01-02T15:04:05.000"), goRoutine, namespace, functionName, message)
 }
 
-// _WriteStdoutf is used to write a formatted system message directly stdout
+// WriteStdoutf is used to write a formatted system message directly stdout
 //  goRoutine: The Go routine making the call
 //  namespace: The namespace the call is being made from
 //  functionName: The function makeing the call

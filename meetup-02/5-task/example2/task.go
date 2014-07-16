@@ -1,6 +1,5 @@
-// This program fixes the bug surrounding the problems spawing the
-// go routine
-
+// Program fixes the bug surrounding the problems spawing the
+// go routine.
 package main
 
 import (
@@ -11,13 +10,13 @@ import (
 )
 
 // Shutdown is a package level variable to flag
-// a shutdown should take place early
-var Shutdown bool = false
+// a shutdown should take place early.
+var Shutdown = false
 
-// Kill the program after the timeout has been reached
-var TimeoutSeconds int = 10
+// Kill the program after the timeout has been reached.
+var TimeoutSeconds = 10
 
-// main is the entry point for the program
+// main is the entry point for the program.
 func main() {
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, os.Interrupt)
@@ -27,12 +26,12 @@ func main() {
 
 	for {
 		select {
-		case whatSig := <-sigChan:
+		case <-sigChan:
 			Shutdown = true
 			continue
 
 		case <-time.After(time.Duration(TimeoutSeconds) * time.Second):
-			fmt.Printf("******> TIMEOUT\n")
+			fmt.Println("******> TIMEOUT")
 			os.Exit(1)
 
 		case <-complete:
@@ -42,23 +41,21 @@ func main() {
 }
 
 // LaunchProcessor is a go routine that is spawned to
-// simulate work
+// simulate work.
 func LaunchProcessor(complete chan struct{}) {
-	defer func() {
-		close(complete)
-	}()
+	defer close(complete)
 
-	fmt.Printf("Start Work\n")
+	fmt.Println("Start Work")
 
 	for count := 0; count < 5; count++ {
-		fmt.Printf("Doing Work\n")
+		fmt.Println("Doing Work")
 		time.Sleep(1 * time.Second)
 
 		if Shutdown == true {
-			fmt.Printf("Kill Early\n")
+			fmt.Println("Kill Early")
 			return
 		}
 	}
 
-	fmt.Printf("End Work\n")
+	fmt.Println("End Work")
 }

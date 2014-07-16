@@ -1,32 +1,24 @@
-// This program demostrates the use of using a defer to
-// catch panics
-
+// Program demostrates the use of using a defer to
+// catch panics.
 package main
 
 import (
-	"errors"
 	"fmt"
 	"runtime"
 )
 
 // main is the entry point for the program
 func main() {
-	var err error
-
-	err = TestError()
-
-	if err != nil {
-		fmt.Printf("Test Error: %v\n", err)
+	if err := testPanic(); err != nil {
+		fmt.Println("Test Error:", err)
 	}
 
-	err = TestPanic()
-
-	if err != nil {
-		fmt.Printf("Test Panic: %v\n", err)
+	if err := testPanic(); err != nil {
+		fmt.Println("Test Panic:", err)
 	}
 }
 
-// catchPanic handles capturing panics and reporting the problem
+// catchPanic handles capturing panics and reporting the problem.
 func catchPanic(err *error, functionName string) {
 	if r := recover(); r != nil {
 		fmt.Printf("%s : PANIC Defered : %v\n", functionName, r)
@@ -38,40 +30,33 @@ func catchPanic(err *error, functionName string) {
 		fmt.Printf("%s : Stack Trace : %s", functionName, string(buf))
 
 		if err != nil {
-			*err = errors.New(fmt.Sprintf("%v", r))
+			*err = fmt.Errorf("%v", r)
 		}
 	}
 }
 
-// MimicError returns an error to testing the defer
-func MimicError(key string) error {
-	return errors.New(fmt.Sprintf("Mimic Error : %s", key))
+// mimicError returns an error to testing the defer
+func mimicError(key string) error {
+	return fmt.Errorf("Mimic Error : %s", key)
 }
 
-// TestError display the behavior for handling errors
-func TestError() (err error) {
+// testError display the behavior for handling errors
+func testError() (err error) {
 	defer catchPanic(&err, "TestError")
-
 	fmt.Printf("\nTestError : Start Test\n")
 
-	err = MimicError("1")
+	err = mimicError("1")
 
 	fmt.Printf("TestError : End Test\n")
-
 	return err
 }
 
-// TestPanic displays the behavior for handing panics
-func TestPanic() (err error) {
+// testPanic displays the behavior for handing panics
+func testPanic() (err error) {
 	defer catchPanic(&err, "TestPanic")
-
 	fmt.Printf("\nTestPanic: Start Test\n")
 
-	err = MimicError("1")
+	err = mimicError("1")
 
 	panic("Mimic Panic")
-
-	fmt.Printf("TestPanic: End Test\n")
-
-	return err
 }

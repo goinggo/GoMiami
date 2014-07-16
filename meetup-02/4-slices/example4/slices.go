@@ -1,5 +1,4 @@
-// This program demostrates how slices grow internally
-
+// Program demostrates how slices grow internally.
 package main
 
 import (
@@ -11,7 +10,7 @@ import (
 // main is the entry point for the program
 func main() {
 	// Create an empty slice
-	data := []string{}
+	var data []string
 
 	for record := 0; record < 1050; record++ {
 		// Append data to the slice

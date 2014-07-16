@@ -1,35 +1,34 @@
-// This program demostrates an object oriented program that uses an
-// interface as a type
-
+// Program demostrates an object oriented program that uses an
+// interface as a type.
 package main
 
 import (
 	"fmt"
 )
 
-// HornSounder is an interface for sounding a horn
+// HornSounder is an interface for sounding a horn.
 type HornSounder interface {
 	SoundHorn()
 }
 
-// Vehicles is a two element array of objects that can sound a horn
+// Vehicles is a two element array of objects that can sound a horn.
 type Vehicles [2]HornSounder
 
-// Car represents a Vechicle with a sound
+// Car represents a Vechicle with a sound.
 type Car struct {
 	Sound string
 }
 
-// Bike represents a Vechicle with a sound
+// Bike represents a Vechicle with a sound.
 type Bike struct {
 	Sound string
 }
 
-// main is the entry point for the program
+// main is the entry point for the program.
 func main() {
 
-	// Use a composite literal to create an object of type Vechicles
-	vehicles := &Vehicles{}
+	// Create a value of type Vechicles.
+	var vehicles Vehicles
 
 	// Add a Car
 	vehicles[0] = &Car{
@@ -47,12 +46,12 @@ func main() {
 	}
 }
 
-// SoundHorn implements the interface for the Car type
+// SoundHorn implements the interface for the Car type.
 func (car *Car) SoundHorn() {
 	fmt.Println(car.Sound)
 }
 
-// SoundHorn implements the interface for the Bike type
+// SoundHorn implements the interface for the Bike type.
 func (bike *Bike) SoundHorn() {
 	fmt.Println(bike.Sound)
 }

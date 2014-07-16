@@ -1,47 +1,42 @@
-// This program demostrates the use of a defer function using
-// a named return argument to capture the error
-
+// Program demostrates the use of a defer function using
+// a named return argument to capture the error.
 package main
 
 import (
-	"errors"
 	"fmt"
 )
 
 // main is the entry point for the program
 func main() {
-	err := Test()
-
-	if err != nil {
-		fmt.Printf("%s\n", err)
+	if err := test(); err != nil {
+		fmt.Println(err)
 	}
 }
 
-// MimicError returns an error to testing the defer
-func MimicError(key string) error {
-	return errors.New(fmt.Sprintf("Mimic Error : %s", key))
+// mimicError returns an error to testing the defer.
+func mimicError(key string) error {
+	return fmt.Errorf("Mimic Error : %s", key)
 }
 
-// Test helps run the program logic
-func Test() (err error) {
+// test helps run the program logic.
+func test() (err error) {
 	defer func() {
-		fmt.Printf("Start Defer\n")
+		fmt.Println("Start Defer")
 
 		if err != nil {
-			fmt.Printf("Err Addr: %v\n", &err)
-			fmt.Printf("Defer Error : %v\n", err)
+			fmt.Println("Err Addr:", &err)
+			fmt.Println("Defer Error", err)
 		}
 	}()
 
-	fmt.Printf("Start Test\n")
+	fmt.Println("Start Test")
 
-	err = MimicError("1")
-	fmt.Printf("Err Addr: %v\n", &err)
+	err = mimicError("1")
+	fmt.Println("Err Addr:", &err)
 
-	err = MimicError("2")
-	fmt.Printf("Err Addr: %v\n", &err)
+	err = mimicError("2")
+	fmt.Println("Err Addr:", &err)
 
-	fmt.Printf("End Test\n")
-
+	fmt.Println("End Test")
 	return err
 }

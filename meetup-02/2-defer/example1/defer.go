@@ -1,39 +1,36 @@
-// This program demostrates the use of a defer function
-
+// Program demostrates the use of a defer function.
 package main
 
 import (
 	"fmt"
 )
 
-// main is the entry point for the program
+// main is the entry point for the program.
 func main() {
-	Test()
+	test()
 }
 
-// MimicError returns an error to testing the defer
-func MimicError(key string) error {
+// mimicError returns an error to testing the defer.
+func mimicError(key string) error {
 	return fmt.Errorf("Mimic Error : %s", key)
 }
 
-// Test helps run the program logic
-func Test() {
-	fmt.Printf("Start Test\n")
+// test helps run the program logic.
+func test() {
+	fmt.Println("Start Test")
 
-	// Short variable declaration
-	err := MimicError("1")
-	fmt.Printf("Err Addr: %v\n", &err)
+	err := mimicError("1")
+	fmt.Println("Err Addr:", &err)
 
 	defer func() {
-		fmt.Printf("Start Defer\n")
+		fmt.Println("Start Defer")
 
 		if err != nil {
-			fmt.Printf("Err Addr: %v\n", &err)
-			fmt.Printf("Defer Error : %v\n", err)
+			fmt.Println("Err Addr:", &err)
+			fmt.Println("Defer Error:", err)
 		}
 	}()
 
-	err = MimicError("2")
-
-	fmt.Printf("End Test\n")
+	err = mimicError("2")
+	fmt.Println("End Test")
 }

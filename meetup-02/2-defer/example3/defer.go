@@ -1,47 +1,41 @@
-// This program demostrates the use of using two defer functions
-
+// Program demostrates the use of using two defer functions.
 package main
 
 import (
-	"errors"
 	"fmt"
 )
 
-// main is the entry point for the program
+// main is the entry point for the program.
 func main() {
-	Test()
+	test()
 }
 
-// MimicError returns an error to testing the defer
-func MimicError(key string) error {
-	return errors.New(fmt.Sprintf("Mimic Error : %s", key))
+// mimicError returns an error to testing the defer.
+func mimicError(key string) error {
+	return fmt.Errorf("Mimic Error : %s", key)
 }
 
-// Test helps run the program logic
-func Test() (err error) {
+// Test helps run the program logic.
+func test() (err error) {
 	defer func() {
-		fmt.Printf("Start Panic Defer\n")
+		fmt.Println("Start Panic Defer")
 
 		if r := recover(); r != nil {
-			fmt.Printf("Defer Panic : %v\n", r)
+			fmt.Println("Defer Panic", r)
 		}
 	}()
 
 	defer func() {
-		fmt.Printf("Start Defer\n")
+		fmt.Println("Start Defer")
 
 		if err != nil {
-			fmt.Printf("Defer Error : %v\n", err)
+			fmt.Println("Defer Error", err)
 		}
 	}()
 
-	fmt.Printf("Start Test\n")
+	fmt.Println("Start Test")
 
-	err = MimicError("1")
+	err = mimicError("1")
 
 	panic("Mimic Panic")
-
-	fmt.Printf("End Test\n")
-
-	return err
 }

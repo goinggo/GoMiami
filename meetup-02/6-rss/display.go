@@ -1,6 +1,5 @@
-// This program demostrates how to read an rss feed and
-// display the result
-
+// Program demostrates how to read an rss feed and
+// display the result.
 package main
 
 import (
@@ -9,23 +8,23 @@ import (
 )
 
 const (
-	FEED = "http://rss.cnn.com/rss/cnn_topstories.rss"
+	// Feed contains the URL to the feed to retrieve and process.
+	Feed = "http://rss.cnn.com/rss/cnn_topstories.rss"
 )
 
-// main is the entry point for the program
+// main is the entry point for the program.
 func main() {
 	helper.WriteStdout("main", "main", "main", "Started")
 
-	// Retrieve the RSS feed document
-	rssDocument, err := rss.RetrieveRssFeed("main", FEED)
-
+	// Retrieve the RSS feed document.
+	document, err := rss.RetrieveFeed("main", Feed)
 	if err != nil {
 		helper.WriteStdoutf("main", "main", "main", "Completed : ERROR : %s", err)
 		return
 	}
 
-	// Display the results
-	rss.DisplayRssFeed("main", rssDocument)
+	// Display the results.
+	rss.DisplayFeed("main", document)
 
 	helper.WriteStdout("main", "main", "main", "Completed")
 }

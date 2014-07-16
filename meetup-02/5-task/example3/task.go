@@ -1,6 +1,5 @@
-// This program fixes the bug surrounding the problem with the use
-// of the shutdown flag
-
+// Program fixes the bug surrounding the problem with the use
+// of the shutdown flag.
 package main
 
 import (
@@ -12,11 +11,11 @@ import (
 )
 
 // Shutdown is a package level variable to flag
-// a shutdown should take place early
-var Shutdown int32 = 0
+// a shutdown should take place early.
+var Shutdown = 0
 
-// Kill the program after the timeout has been reached
-var TimeoutSeconds int = 10
+// Kill the program after the timeout has been reached.
+var TimeoutSeconds = 10
 
 // main is the entry point for the program
 func main() {
@@ -33,7 +32,7 @@ func main() {
 			continue
 
 		case <-time.After(time.Duration(TimeoutSeconds) * time.Second):
-			fmt.Printf("******> TIMEOUT\n")
+			fmt.Println("******> TIMEOUT")
 			os.Exit(1)
 
 		case <-complete:
@@ -45,21 +44,19 @@ func main() {
 // LaunchProcessor is a go routine that is spawned to
 // simulate work
 func LaunchProcessor(complete chan struct{}) {
-	defer func() {
-		close(complete)
-	}()
+	defer close(complete)
 
-	fmt.Printf("Start Work\n")
+	fmt.Println("Start Work")
 
 	for count := 0; count < 5; count++ {
-		fmt.Printf("Doing Work\n")
+		fmt.Println("Doing Work")
 		time.Sleep(1 * time.Second)
 
-		if atomic.LoadInt32(&Shutdown) == 1 {
-			fmt.Printf("Kill Early\n")
+		if Shutdown == true {
+			fmt.Println("Kill Early")
 			return
 		}
 	}
 
-	fmt.Printf("End Work\n")
+	fmt.Println("End Work")
 }

@@ -1,37 +1,34 @@
-// This program demostrates how the defer function is
+// Program demostrates how the defer function is
 // evaluated and values that are passed in are taken
-// at the time of the evaluation
-
+// at the time of the evaluation.
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
-// main is the entry point for the program
+// main is the entry point for the program.
 func main() {
-	id, err := ReturnId()
-
+	id, err := returnID()
 	if err != nil {
-		fmt.Printf("ERROR: %s", err)
+		fmt.Println("ERROR:", err)
 		return
 	}
 
-	fmt.Printf("Id: %d\n", id)
+	fmt.Println("Id:", id)
 }
 
-// ReturnId returns an id and evaluates if the id
-// is valid
-func ReturnId() (id int, err error) {
+// returnID returns an id and evaluates if the id is valid.
+func returnID() (id int, err error) {
 	defer func(id int) {
 		if id == 10 {
-			err = fmt.Errorf("Invalid Id\n")
+			err = errors.New("Invalid Id")
 		}
 
-		fmt.Printf("Value of Id : %d\n", id)
+		fmt.Println("Value of Id:", id)
 	}(id)
 
 	id = 10
-
 	return id, err
 }

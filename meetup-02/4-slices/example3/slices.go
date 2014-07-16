@@ -1,6 +1,5 @@
-// This program demostrates how to append data to slices and
-// grow their capacity
-
+// Program demostrates how to append data to slices and
+// grow their capacity.
 package main
 
 import (
@@ -9,9 +8,9 @@ import (
 	"time"
 )
 
-// Record is a sample structure for the example
+// Record is a sample structure for the example.
 type Record struct {
-	Id    int
+	ID    int
 	Name  string
 	Color string
 }
@@ -35,21 +34,21 @@ func main() {
 		}
 
 		data[record] = Record{
-			Id:    record,
+			ID:    record,
 			Name:  fmt.Sprintf("Rec: %d", record),
 			Color: color,
 		}
 	}
 
 	// Create two empty slices and split the records by color
-	red := []*Record{}
-	blue := []*Record{}
+	var red []Record
+	var blue []Record
 
 	for _, record := range data {
 		if record.Color == "Red" {
-			red = append(red, &record)
+			red = append(red, record)
 		} else {
-			blue = append(blue, &record)
+			blue = append(blue, record)
 		}
 	}
 
